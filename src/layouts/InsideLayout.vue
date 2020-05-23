@@ -15,7 +15,7 @@
 </template>
 
 <script>
-    import axios from "axios";
+    import request from "../helpers/request";
     import {mapActions, mapGetters} from "vuex"
 
     export default {
@@ -40,7 +40,7 @@
 
                 const that = this;
 
-                axios.post('logout')
+                request.post('logout')
                     .then(function (response) {
                         if(response.status === 200){
                             that.setToken('')
@@ -56,9 +56,7 @@
 
             getPosts(){
                 const that = this;
-
-
-                axios.get('pages')
+                request.get('pages')
                     .then(function (response) {
                         // handle success
                         console.log(response);

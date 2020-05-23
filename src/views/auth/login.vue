@@ -1,33 +1,41 @@
 <template>
-    <v-row>
-        <v-col>
+    <v-row class="login-form">
+        <v-col cols="12" class="login-form__header">
+            Авторизация
+        </v-col>
+        <v-col cols="12" class="login-form__item">
             <v-text-field
-                    label="Login"
+                    color="#e85a19"
+                    class="input-center"
+                    label="Логин"
                     v-model="login"
             />
         </v-col>
-        <v-col>
+        <v-col cols="12" class="login-form__item">
             <v-text-field
-                    label="Password"
+                    color="#e85a19"
+                    class="input-center"
+                    label="Пароль"
                     v-model="password"
             />
         </v-col>
-        <v-col>
-            <v-btn color="red" @click="sendLoginRequest">Send</v-btn>
+        <v-col cols="12" class="login-form__item">
+            <button class="btn-hover color-2" @click="sendLoginRequest">Войти</button>
         </v-col>
     </v-row>
+
 </template>
 
 <script>
-    import axios from "axios";
+    import request from "../../helpers/request";
     import {mapActions, mapGetters} from "vuex"
 
     export default {
         name: "login",
 
         data: () => ({
-            login: '',
-            password: ''
+            login: 'johndoe@gmail.com',
+            password: 'password'
         }),
 
         methods: {
@@ -36,9 +44,9 @@
 
             sendLoginRequest() {
                 const that = this;
-                axios.post('login', {
-                    email: 'johndoe@gmail.com',
-                    password: 'password'
+                request.post('login', {
+                    email: this.login,
+                    password: this.password
                 })
                     .then(function (response) {
                         if(response.data.token){
@@ -56,6 +64,27 @@
     }
 </script>
 
-<style scoped>
+<style  lang="scss">
+    .input-center{
+        label{
+            width: 100%;
+            max-width: 100%;
+            min-width: 100%;
+            text-align: center;
+            font-family: "Raleway Light", sans-serif;
+        }
+        input{
+            text-align: center;
+            font-family: "Raleway Bold", sans-serif;
+        }
+    }
 
+    .login-form{
+        max-width: 350px;
+        &__header{
+            font-size: 20px;
+            color: #e85a19;
+            font-family: "Raleway Bold", sans-serif;
+        }
+    }
 </style>
