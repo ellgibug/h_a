@@ -1,31 +1,93 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
-import Home from '../views/Home.vue'
+import Meta from 'vue-meta';
+import axios from "axios";
+
+import user from "../store/user"
+
+import Landing from '../views/outside/landing.vue'
+import PageNotFound from '../views/errors/pageNotFound.vue'
 
 Vue.use(VueRouter)
+Vue.use(Meta);
 
-  const routes = [
-  {
-    path: '/',
-    name: 'Home',
-    component: Home
-  },
-  {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: function () {
-      return import(/* webpackChunkName: "about" */ '../views/About.vue')
+const ifNotAuthenticated = (to, from, next) => {
+    if (!user.state.isAuthed) {
+        next();
+        return;
     }
-  }
+    next("/dashboard");
+};
+
+const ifAuthenticated = (to, from, next) => {
+    if (user.state.isAuthed) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${user.state.token}`;
+        next();
+        return;
+    }
+    next("/login");
+};
+
+
+
+console.log(11, user)
+
+
+const routes = [
+    {
+        path: '/',
+        name: 'Landing',
+        component: Landing,
+        meta: {
+            layout: 'OutsideLayout',
+            title: 'Landing'
+        }
+    },
+    {
+        path: '/login',
+        name: 'Login',
+        beforeEnter: ifNotAuthenticated,
+        meta: {
+            layout: 'AuthLayout',
+            title: 'Login'
+        },
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: function () {
+            return import(/* webpackChunkName: "about" */ '../views/auth/login.vue')
+        }
+    },
+    {
+        path: '/dashboard',
+        name: 'Dashboard',
+        beforeEnter: ifAuthenticated,
+        meta: {
+            layout: 'InsideLayout',
+            title: 'Dashboard'
+        },
+        // route level code-splitting
+        // this generates a separate chunk (about.[hash].js) for this route
+        // which is lazy-loaded when the route is visited.
+        component: function () {
+            return import(/* webpackChunkName: "about" */ '../views/inside/dashboard.vue')
+        }
+    },
+    {
+        path: '*',
+        name: 'PageNotFound',
+        component: PageNotFound,
+        meta: {
+            layout: 'ErrorLayout',
+            title: 'PageNotFound'
+        }
+    },
 ]
 
 const router = new VueRouter({
-  mode: 'history',
-  base: process.env.BASE_URL,
-  routes
+    mode: 'history',
+    base: process.env.BASE_URL,
+    routes
 })
 
 export default router
