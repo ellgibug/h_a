@@ -3,7 +3,7 @@ import VueRouter from 'vue-router'
 import Meta from 'vue-meta';
 import axios from "axios";
 
-import user from "../store/user"
+import {store} from "../store/index"
 
 import Landing from '../views/outside/landing.vue'
 import PageNotFound from '../views/errors/pageNotFound.vue'
@@ -12,7 +12,7 @@ Vue.use(VueRouter)
 Vue.use(Meta);
 
 const ifNotAuthenticated = (to, from, next) => {
-    if (!user.state.isAuthed) {
+    if (!store.getters['user/isAuthed']) {
         next();
         return;
     }
@@ -20,17 +20,14 @@ const ifNotAuthenticated = (to, from, next) => {
 };
 
 const ifAuthenticated = (to, from, next) => {
-    if (user.state.isAuthed) {
-        axios.defaults.headers.common['Authorization'] = `Bearer ${user.state.token}`;
+    if (store.getters['user/isAuthed']) {
+        axios.defaults.headers.common['Authorization'] = `Bearer ${store.getters['user/token']}`;
         next();
         return;
     }
     next("/login");
 };
 
-
-
-console.log(11, user)
 
 
 const routes = [

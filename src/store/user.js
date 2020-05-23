@@ -2,7 +2,7 @@ import _cloneDeep from "lodash/cloneDeep"
 
 const state = {
     user: {},
-    isAuthed: true,
+    isAuthed: false,
     token: '',
 };
 
@@ -23,6 +23,7 @@ const actions = {
         commit('setUser', value);
     },
     setIsAuthed({ commit }, value) {
+        console.log(value)
         commit('setIsAuthed', value);
     },
     setToken({ commit }, value) {
@@ -35,6 +36,7 @@ const mutations = {
         state.user = _cloneDeep(value);
     },
     setIsAuthed(state, value) {
+        console.log(123, value)
         state.isAuthed = value;
     },
     setToken(state, value) {
