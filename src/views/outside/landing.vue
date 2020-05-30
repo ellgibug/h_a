@@ -1,18 +1,7 @@
 <template>
-    <div class="buttons">
-    <button class="btn-hover color-1" @click="openLoginPage">Кнопка</button>
-    <button class="btn-hover color-2">Войти</button>
-    <button class="btn-hover color-3">BUTTON</button>
-    <button class="btn-hover color-4">BUTTON</button>
-    <button class="btn-hover color-5">BUTTON</button>
-    <button class="btn-hover color-6">BUTTON</button>
-    <button class="btn-hover color-7">BUTTON</button>
-    <button class="btn-hover color-8">BUTTON</button>
-    <button class="btn-hover color-9">BUTTON</button>
-    <button class="btn-hover color-10">BUTTON</button>
-    <button class="btn-hover color-11">BUTTON</button>
+    <div class="wrapper">
+        <img src="../../assets/lamp.png" alt="" @click="openLoginPage" height="500px">
     </div>
-
 </template>
 
 <script>
@@ -27,5 +16,10 @@
 </script>
 
 <style scoped>
-
+    .wrapper{
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
 </style>

@@ -5,7 +5,7 @@
         </v-col>
         <v-col cols="12" class="login-form__item">
             <v-text-field
-                    color="#e85a19"
+                    color="rgb(255, 170, 0)"
                     class="input-center"
                     label="Логин"
                     v-model="login"
@@ -13,7 +13,7 @@
         </v-col>
         <v-col cols="12" class="login-form__item">
             <v-text-field
-                    color="#e85a19"
+                    color="rgb(255, 170, 0)"
                     class="input-center"
                     label="Пароль"
                     v-model="password"
@@ -83,7 +83,7 @@
         max-width: 350px;
         &__header{
             font-size: 20px;
-            color: #e85a19;
+            color: rgb(255, 170, 0);
             font-family: "Raleway Bold", sans-serif;
         }
     }

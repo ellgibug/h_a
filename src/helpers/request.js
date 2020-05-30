@@ -3,10 +3,11 @@ import {store} from '../store/index';
 
 const unauthorizedHandler = e => {
     if(e.response.status === 401){
-        store.dispatch('user/setIsAuthed', {value:false});
-        store.dispatch('user/setUser', {value: {}});
-        store.dispatch('user/setToken', {value:''});
-        window.location.href = '/auth';
+        store.dispatch('user/setIsAuthed', false);
+        store.dispatch('user/setUser', {});
+        store.dispatch('user/setToken', '');
+        window.location.reload();
+        window.location.href = '/login';
     }
     throw e;
 };

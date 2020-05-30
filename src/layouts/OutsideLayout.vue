@@ -1,6 +1,5 @@
 <template>
     <div>
-        <h1>Outside</h1>
         <router-view/>
     </div>
 </template>

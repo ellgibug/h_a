@@ -43,7 +43,7 @@ const routes = [
     {
         path: '/login',
         name: 'Login',
-        beforeEnter: ifNotAuthenticated,
+       beforeEnter: ifNotAuthenticated,
         meta: {
             layout: 'AuthLayout',
             title: 'Login'
